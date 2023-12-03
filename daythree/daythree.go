@@ -134,8 +134,6 @@ func partTwo(lines [][]rune) int {
 				continue
 			}
 
-			fmt.Printf("Checking Gear (%d,%d)", i, j)
-
 			var linesCopy [][]rune
 			for _, line := range lines {
 				var lineCopy []rune
@@ -153,56 +151,42 @@ func partTwo(lines [][]rune) int {
 					continue
 				}
 
-				fmt.Println("  Checking Adjacent:", string(linesCopy[y][x]))
 				if point := linesCopy[y][x]; isInt(point) {
 					adjacentPartCount += 1
-					fmt.Println("    Is an int")
-					fmt.Printf("      adding adjactent part (currently %d)%s", adjacentPartCount, newline)
 
 					currNumStr := string(point)
-					fmt.Printf("      adding to currentNumStr (currently %s)%s", currNumStr, newline)
 
 					left := 1
 					right := 1
 
 					for x-left >= 0 {
-						fmt.Printf("    Checking %d chars left (%s)", left, string(linesCopy[y][x-left]))
 						point := linesCopy[y][x-left]
 						if !isInt(point) {
 							break
 						}
 						currNumStr = string(point) + currNumStr
-						fmt.Println("      Is an int")
-						fmt.Printf("        adding to currentNumStr (currently %s)%s", currNumStr, newline)
 						linesCopy[y][x-left] = '.'
 						left += 1
 					}
 
 					for x+right < len(linesCopy[y]) {
-						fmt.Printf("    Checking %d chars right (%s)", right, string(linesCopy[y][x+right]))
 						point := linesCopy[y][x+right]
 						if !isInt(point) {
 							break
 						}
 						currNumStr += string(point)
-						fmt.Println("      Is an int")
-						fmt.Printf("        adding to currentNumStr (currently %s)%s", currNumStr, newline)
 						linesCopy[y][x+right] = '.'
 						right += 1
 					}
 
-					fmt.Println("    Final currNumStr:", currNumStr)
 					gearRatio *= toInt(currNumStr)
-					fmt.Println("    Current Gear Ratio:", gearRatio)
 				}
 			}
 
 			if adjacentPartCount == 2 {
 				sum += gearRatio
-				fmt.Println("  Gear had two adjacent parts, adding gear ratio to sum")
 				continue
 			}
-			fmt.Printf("  Gear had %d adjacent parts, ignoring", adjacentPartCount)
 		}
 	}
 	return sum
