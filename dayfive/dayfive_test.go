@@ -18,7 +18,7 @@ func TestPartOne(t *testing.T) {
 }
 
 func TestPartTwo(t *testing.T) {
-	expected := 0
+	expected := 46
 	got := partTwo(parseInput(example))
 
 	if got != expected {
